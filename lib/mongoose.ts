@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+<<<<<<< HEAD
 export async function connectDB() {
   // Se já estiver ligado, não faz nada
   if (mongoose.connection.readyState >= 1) {
@@ -16,4 +17,11 @@ export async function connectDB() {
 
   // Liga à base de dados
   await mongoose.connect(uri);
+=======
+const MONGODB_URI = process.env.MONGODB_URI!;
+
+export async function connectDB() {
+  if (mongoose.connection.readyState >= 1) return;
+  await mongoose.connect(MONGODB_URI);
+>>>>>>> 40634f34ca9e2724d782ed2a29fc61ceefcfa8f6
 }

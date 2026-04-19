@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongoose";
 import Parcela from "@/models/Parcela";
@@ -61,4 +62,20 @@ export async function POST(req: Request) {
     console.error("Erro ao processar o POST:", error);
     return NextResponse.json({ erro: "Token inválido ou expirado." }, { status: 401 });
   }
+=======
+import { connectDB } from "@/lib/mongoose";
+import Parcela from "@/models/Parcela";
+
+export async function GET() {
+  await connectDB();
+  const parcelas = await Parcela.find();
+  return Response.json(parcelas);
+}
+
+export async function POST(req: Request) {
+  await connectDB();
+  const body = await req.json();
+  const nova = await Parcela.create(body);
+  return Response.json(nova);
+>>>>>>> 40634f34ca9e2724d782ed2a29fc61ceefcfa8f6
 }
