@@ -1,8 +1,19 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-
 export async function connectDB() {
-  if (mongoose.connection.readyState >= 1) return;
-  await mongoose.connect(MONGODB_URI);
+  // Se já estiver ligado, não faz nada
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
+
+  // Vai buscar a variável ao ficheiro .env.local
+  const uri = process.env.MONGODB_URI;
+
+  // Se a variável não existir, dá um erro claro logo no início!
+  if (!uri) {
+    throw new Error("Por favor, define a variável MONGODB_URI no ficheiro .env.local");
+  }
+
+  // Liga à base de dados
+  await mongoose.connect(uri);
 }
